@@ -2,7 +2,7 @@
 //import { db } from "../firebase";
 //import { collection, getDocs, query } from "firebase/firestore";
 
-function HomePage() {
+function Dashboard() {
    /* const [items, setItems] = useState([]);*/
 
     //useEffect(() => {
@@ -33,4 +33,4 @@ function HomePage() {
     );
 }
 
-export default HomePage;
+export default Dashboard;
