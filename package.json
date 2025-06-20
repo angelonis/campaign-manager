@@ -15,7 +15,7 @@
     "react-scripts": "^5.0.1",
     "web-vitals": "^2.1.4"
   },
-  "homepage": "https://angelonis.github.io/campaign-manager",
+  "homepage": "https://angelonis.github.io/campaign-manager/",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

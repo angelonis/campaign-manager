@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { auth } from "../firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function LoginPage() {
     const [email, setEmail] = useState("");
@@ -40,7 +41,7 @@ function LoginPage() {
                     onChange={(e) => setPassword(e.target.value)}
                     required
                 /><br />
-                <p><button type="submit">Login</button> Don't have an account? <a href="/register">Register here</a></p>
+                <p><button type="submit">Login</button> Don't have an account? <Link to="/register">Register here</Link></p>
             </form>
         </div>
     );
