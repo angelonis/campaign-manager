@@ -46,7 +46,7 @@ const UserMenu = ({ user }) => {
             <div className="user-icon-container" onClick={() => handleProfileClick()}>
                 {user?.email
                     ? <div className="user-icon">{user.email.charAt(0).toUpperCase()}</div>
-                    : <button onClick={handleLoginClick}>Login</button>}
+                    : <button className="login-top-bar" onClick={handleLoginClick}>Login</button>}
             </div>
             {open && (
                 <div className="dropdown-menu">

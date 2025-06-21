@@ -69,7 +69,7 @@
 }
 
 .sidebar {
-    width: 200px;
+    width: 175px;
     background-color: var(--color-sidebar);
     color: var(--color-text);
     padding: 1rem;
@@ -98,20 +98,6 @@
             color: black;
         }
 
-
-.nav-links {
-    display: flex;
-    flex-direction: column;
-}
-
-.main-content {
-    flex-grow: 1;
-    padding: 2rem;
-    background-color: var(--color-bg);
-    color: var(--color-text);
-    overflow-y: auto;
-}
-
 .sidebar-toggle {
     background-color: transparent;
     color: var(--color-text);
@@ -126,6 +112,20 @@
         background-color: var(--color-accent);
         color: black;
     }
+
+
+.nav-links {
+    display: flex;
+    flex-direction: column;
+}
+
+.main-content {
+    flex-grow: 1;
+    padding: 2rem;
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    overflow-y: auto;
+} 
 
 /* Dropdown Items */
 
