@@ -4,10 +4,44 @@
     font-family: var(--font-main);
 }
 
+@media (prefers-reduced-motion: no-preference) {
+    .App-logo {
+        animation: App-logo-spin infinite 20s linear;
+    }
+}
+
+.App-header {
+    background-color: #282c34;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+}
+
+.App-link {
+    color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Layout Styles */
+
 .app-layout {
     display: flex;
     flex-direction: column;
     height: 100vh;
+    font-family: sans-serif;
 }
 
 .topbar {
@@ -44,6 +78,11 @@
     box-shadow: 2px 0 4px rgba(0, 0, 0, 0.1);
     transition: background-color var(--transition), color var(--transition);
 }
+
+    .sidebar h2 {
+        margin-bottom: 1rem;
+        font-size: 1.2rem;
+    }
 
     .sidebar a {
         color: var(--color-text);
@@ -108,7 +147,7 @@
 /* Login Page Styles */
 
 .login-input {
-    display: block;
+    display: block;    
     padding: 0.5rem;
     width: 100%;
     max-width: 400px;
@@ -124,7 +163,7 @@
 @keyframes App-logo-spin {
     from {
         transform: rotate(0deg);
-    }
+}
 
     to {
         transform: rotate(360deg);
