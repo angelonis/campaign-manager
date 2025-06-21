@@ -1,77 +1,65 @@
-﻿import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import { auth } from "./firebase";
-import { onAuthStateChanged } from "firebase/auth";
+﻿import React, { useState } from "react";
+import { BrowserRouter as Router, Link } from "react-router-dom";
 import { HiMenuAlt2, HiX } from "react-icons/hi";
 
-import Dashboard from "./pages/Dashboard";
-import NPCPage from "./pages/NPCPage";
-import QuestPage from "./pages/QuestPage";
-import LoginPage from "./pages/LoginPage";
-import RegisterPage from "./pages/RegisterPage";
-import ProfilePage from "./pages/ProfilePage";
-import SettingsPage from "./pages/SettingsPage";
-
+import { AuthProvider, useAuth } from "./auth/useAuth";
 import UserMenu from "./components/UserMenu";
+import AppRoutes from "./routes/AppRoutes";
 
-import "./App.css";
+import "./styles/App.css";
 
-function App() {
+function Layout() {
     const [sidebarOpen, setSidebarOpen] = useState(true);
+    const { user } = useAuth();
 
     const toggleSidebar = () => {
         setSidebarOpen(!sidebarOpen);
     };
 
-    const [user, setUser] = useState(null);
-
-    useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-            setUser(currentUser);
-        });
-
-        return () => unsubscribe();
-    }, []);
-
     return (
-        <Router>
-            <div className="app-layout">
-                <header className="topbar">
-                    <div className="topbar-content">
-                        <button className="sidebar-toggle" onClick={toggleSidebar}>
-                            {sidebarOpen ? <HiX /> : <HiMenuAlt2 />}
-                        </button>
-                        <div style={{ marginLeft: "auto" }}>
-                            <UserMenu />
-                        </div>
+        <div className="app-layout">
+            <header className="topbar">
+                <div className="topbar-content">
+                    <button className="sidebar-toggle" onClick={toggleSidebar}>
+                        {sidebarOpen ? <HiX /> : <HiMenuAlt2 />}
+                    </button>
+                    <div style={{ marginLeft: "auto" }}>
+                        <UserMenu user={user} />
                     </div>
-                </header>
-
-                <div className="content-wrapper">
-                    {sidebarOpen && (
-                        <aside className="sidebar">
-                            <nav className="nav-links">
-                                <Link to="/">Dashboard</Link>                                
-                                <Link to="/npcs">NPCs</Link>
-                                <Link to="/quests">Quests</Link>
-                            </nav>
-                        </aside>
-                    )}
-
-                    <main className="main-content">
-                        <Routes>
-                            <Route path="/" element={<Dashboard />} />
-                            <Route path="/login" element={<LoginPage />} />
-                            <Route path="/npcs" element={<NPCPage />} />
-                            <Route path="/quests" element={<QuestPage />} />
-                            <Route path="/register" element={<RegisterPage />} />
-                            <Route path="/profile" element={<ProfilePage />} />
-                            <Route path="/settings" element={<SettingsPage />} />
-                        </Routes>
-                    </main>
                 </div>
+            </header>
+
+            <div className="content-wrapper">
+                {sidebarOpen && (
+                    <aside className="sidebar">
+                        <nav className="nav-links">
+                            <Link to="/">Dashboard</Link>
+                            <Link to="/characters">Characters</Link>
+                            <Link to="/npcs">NPCs</Link>
+                            <Link to="/quests">Quests</Link>
+                            <Link to="/locations">Locations</Link>
+                            <Link to="/events">Events</Link>
+                            <Link to="/items">Items</Link>
+                            <Link to="/canvas">Story Canvas</Link>
+                        </nav>
+                    </aside>
+                )}
+
+                <main className="main-content">
+                    <AppRoutes />
+                </main>
             </div>
-        </Router>
+        </div>
+    );
+}
+
+function App() {
+    return (
+        <AuthProvider>
+            <Router>
+                <Layout />
+            </Router>
+        </AuthProvider>
     );
 }
 
