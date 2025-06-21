@@ -2,8 +2,6 @@ import { auth } from "../firebase/firebase";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import React, { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { signOut } from "firebase/auth";
-import { auth } from "../firebase/firebase";
 import { useTheme } from "../context/ThemeContext";
 import { HiCog, HiUser, HiLogout, HiSun, HiMoon } from "react-icons/hi";
 
@@ -17,6 +15,7 @@ const UserMenu = ({ user }) => {
 
     const handleLogout = async () => {
         await signOut(auth);
+        setMenuOpen(false);
         navigate("/login");
     };
 
