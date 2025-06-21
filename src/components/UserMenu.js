@@ -1,125 +1,79 @@
-import { auth } from "../firebase/firebase";
-import { onAuthStateChanged, signOut } from "firebase/auth";
+import React, { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import React, { useState, useEffect, useRef } from "react";
-import { FaUser, FaCog, FaSignOutAlt } from "react-icons/fa";
+import { signOut } from "firebase/auth";
+import { auth } from "../firebase/firebase";
+import { useTheme } from "../context/ThemeContext";
+import { HiCog, HiUser, HiLogout, HiSun, HiMoon } from "react-icons/hi";
 
-function UserMenu() {
-    const [user, setUser] = useState(null);
-    const [menuOpen, setMenuOpen] = useState(false);
+import "../styles/UserMenu.css";
+
+const UserMenu = ({ user }) => {
+    const [open, setMenuOpen] = useState(false);
+    const menuRef = useRef(null);
     const navigate = useNavigate();
-
-    useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-            setUser(currentUser);
-        });
-        return () => unsubscribe();
-    }, []);
+    const { theme, toggleTheme } = useTheme();
 
     const handleLogout = async () => {
         await signOut(auth);
-        setMenuOpen(false);
         navigate("/login");
+    };
+
+    const handleClickOutside = (e) => {
+        if (menuRef.current && !menuRef.current.contains(e.target)) {
+            setMenuOpen(false);
+        }
     };
 
     const handleLoginClick = () => {
         navigate("/login");
     };
 
-    useEffect(() => {
-        const handleClickOutside = (event) => {
-            if (menuRef.current && !menuRef.current.contains(event.target)) {
-                setMenuOpen(false);
-            }
-        };
+    const handleProfileClick = () => {
+        if (user) {
+            setMenuOpen(!open)
+        } 
+    };
 
+    useEffect(() => {
         document.addEventListener("mousedown", handleClickOutside);
-        return () => {
-            document.removeEventListener("mousedown", handleClickOutside);
-        };
+        return () => document.removeEventListener("mousedown", handleClickOutside);
     }, []);
 
-    const menuRef = useRef(null);
-    return (  
-        <div ref={menuRef} style={{ position: "relative", marginRight: "1rem" }}>
-            {user ? (
-                <div>
-                    <div
-                        onClick={() => setMenuOpen(!menuOpen)}
-                        style={{
-                            width: "40px",
-                            height: "40px",
-                            borderRadius: "50%",
-                            backgroundColor: "#ccc",
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            cursor: "pointer",
-                            fontWeight: "bold",
-                            userSelect: "none"
-                        }}
-                        title={user.email}
-                    >
-                        {user.email.charAt(0).toUpperCase()}
+    
+    return (
+        <div className="user-menu" ref={menuRef}>
+            <div className="user-icon-container" onClick={() => handleProfileClick()}>
+                {user?.email
+                    ? <div className="user-icon">{user.email.charAt(0).toUpperCase()}</div>
+                    : <button onClick={handleLoginClick}>Login</button>}
+            </div>
+            {open && (
+                <div className="dropdown-menu">
+                    <div className="menu-item" onClick={() => {
+                        navigate("/profile");
+                        setMenuOpen(false);
+                    }}>
+                        <HiUser /> Profile
                     </div>
-                    {menuOpen && (
-                        <div
-                            style={{
-                                position: "absolute",
-                                top: "50px",
-                                right: 0,
-                                background: "white",
-                                border: "1px solid #ccc",
-                                borderRadius: "6px",
-                                padding: "0.5rem 0",
-                                zIndex: 10,
-                                minWidth: "160px",
-                                boxShadow: "0 2px 8px rgba(0, 0, 0, 0.15)"
-                            }}
-                        >
-                            <div style={{ padding: "0.5rem 1rem 0.2rem", fontWeight: "bold", fontSize: "0.70rem", color: "#555", opacity:.5 }}>
-                                {user.email}
-                            </div>
+                    <div className="menu-item" onClick={() => {
+                        navigate("/settings");
+                        setMenuOpen(false);
+                    }}>
+                        <HiCog /> Settings
+                    </div>
+                    <div className="menu-item" onClick={toggleTheme}>
+                        {theme === "dark" ? <HiSun /> : <HiMoon />} {theme === "dark" ? "Light Mode" : "Dark Mode"}
+                    </div>
+                    <div className="menu-item" onClick={() => {
+                        handleLogout();
 
-                            <div
-                                className="dropdown-item"
-                                onClick={() => {
-                                    setMenuOpen(false);
-                                    navigate("/profile");
-                                }}
-                            >
-                                <FaUser style={{ marginRight: "8px" }} />
-                                Profile
-                            </div>
-
-                            <div
-                                className="dropdown-item"
-                                onClick={() => {
-                                    setMenuOpen(false);
-                                    navigate("/settings");
-                                }}
-                            >
-                                <FaCog style={{ marginRight: "8px" }} />
-                                Settings
-                            </div>
-
-                            <div
-                                className="dropdown-item"
-                                onClick={handleLogout}
-                            >
-                                <FaSignOutAlt style={{ marginRight: "8px" }} />
-                                Logout
-                            </div>
-                        </div>
-                    )}
-
-
+                    }}>
+                        <HiLogout /> Logout
+                    </div>
                 </div>
-            ) : (
-                <button onClick={handleLoginClick}>Login</button>
             )}
         </div>
     );
-}
+};
 
 export default UserMenu;
