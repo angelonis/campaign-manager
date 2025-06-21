@@ -6,7 +6,11 @@ import { AuthProvider, useAuth } from "./auth/useAuth";
 import UserMenu from "./components/UserMenu";
 import AppRoutes from "./routes/AppRoutes";
 
+import { ThemeProvider } from "./context/ThemeContext";
+
 import "./styles/App.css";
+import './styles/theme.css';
+
 
 function Layout() {
     const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -56,9 +60,11 @@ function Layout() {
 function App() {
     return (
         <AuthProvider>
-            <Router>
-                <Layout />
-            </Router>
+            <ThemeProvider>
+                <Router>
+                    <Layout />
+                </Router>
+            </ThemeProvider>
         </AuthProvider>
     );
 }
