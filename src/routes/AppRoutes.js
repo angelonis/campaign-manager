@@ -5,7 +5,7 @@ import { useAuth } from "../auth/useAuth";
 import WelcomePage from "../pages/WelcomePage";
 import LoginPage from "../auth/LoginPage";
 import RegisterPage from "../auth/RegisterPage";
-
+import VerifyEmailPage from "../auth/VerifyEmailPage";
 import PrivateRoute from "../auth/PrivateRoute";
 
 import Dashboard from "../dashboard/Dashboard";
@@ -29,6 +29,7 @@ const AppRoutes = () => {
             <Route path="/" element={user ? <Dashboard /> : <WelcomePage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
+            <Route path="/verify-email" element={<VerifyEmailPage />} />
 
             {/* Private Routes */}
             <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
@@ -42,7 +43,7 @@ const AppRoutes = () => {
             <Route path="/events" element={<PrivateRoute><EventPage /></PrivateRoute>} />
             <Route path="/items" element={<PrivateRoute><ItemPage /></PrivateRoute>} />
             <Route path="/entity/:type/:id" element={<PrivateRoute><EntityDetail /></PrivateRoute>} />
-            <Route path="/canvas" element={<PrivateRoute><CanvasPage /></PrivateRoute>} />
+            <Route path="/canvas" element={<PrivateRoute><CanvasPage /></PrivateRoute>} />            
         </Routes>
     );
 };
