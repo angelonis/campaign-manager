@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { auth } from "../firebase/firebase";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 
 function RegisterPage() {
@@ -20,8 +20,12 @@ function RegisterPage() {
         }
 
         try {
-            await createUserWithEmailAndPassword(auth, email, password);
-            navigate("/");
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            const user = userCredential.user;
+
+            // Send verification email
+            await sendEmailVerification(user);
+            navigate("/verify-email");
         } catch (err) {
             setError(err.message);
         }

@@ -5,7 +5,15 @@ import { useAuth } from "./useAuth";
 const PrivateRoute = ({ children }) => {
     const { user } = useAuth();
 
-    return user ? children : <Navigate to="/login" replace />;
+    if (!user) {
+        return <Navigate to="/login" />;
+    }
+
+    if (!user.emailVerified) {
+        return <Navigate to="/verify-email" />;
+    }
+
+    return children;
 };
 
 export default PrivateRoute;
