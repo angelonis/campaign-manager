@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { auth } from "../firebase/firebase";
 import { createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+
+import "../styles/Register.css";
 
 function RegisterPage() {
     const [email, setEmail] = useState("");
@@ -32,37 +34,41 @@ function RegisterPage() {
     };
 
     return (
-        <div style={{ padding: "2rem" }}>
-            <h2>Create an Account</h2>
-            {error && <p style={{ color: "red" }}>{error}</p>}
-            <form onSubmit={handleRegister}>
+        <div className="register-container">
+            <h2>Register</h2>
+            {error && <p className="error-message">{error}</p>}
+            <form onSubmit={handleRegister} className="register-form">
                 <input
                     type="email"
                     placeholder="Email"
-                    className="login-input"
+                    className="register-input"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
-                /><br />
+                />
                 <input
                     type="password"
-                    placeholder="Password (min 6 chars)"
-                    className="login-input"
+                    placeholder="Password"
+                    className="register-input"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
-                /><br />
+                />
                 <input
                     type="password"
                     placeholder="Confirm Password"
-                    className="login-input"
+                    className="register-input"
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     required
-                /><br />
-                <button type="submit">Register</button>
+                />
+                <button type="submit" className="register-button">Register</button>
             </form>
+            <p className="login-redirect">
+                Already have an account? <Link to="/login">Login</Link>
+            </p>
         </div>
+
     );
 }
 

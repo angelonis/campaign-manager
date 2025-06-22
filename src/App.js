@@ -61,7 +61,7 @@ function App() {
     return (
         <AuthProvider>
             <ThemeProvider>
-                <Router>
+                <Router basename="/campaign-manager">
                     <Layout />
                 </Router>
             </ThemeProvider>
