@@ -1,38 +1,52 @@
-import React from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { sendEmailVerification } from "firebase/auth";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { auth } from "../firebase/firebase";
+import { sendEmailVerification } from "firebase/auth";
+import { useAuth } from "../auth/useAuth";
 
-function VerifyEmailPage() {
-    const [user] = useAuthState(auth);
+const VerifyEmailPage = () => {
+    const { user } = useAuth();
+    const navigate = useNavigate();
+    const [resent, setResent] = useState(false);
 
-    const resendVerification = async () => {
+    useEffect(() => {
+        if (!user) return;
+
+        const interval = setInterval(async () => {
+            await user.reload(); // Refresh user object
+            if (user.emailVerified) {
+                clearInterval(interval);
+                navigate("/dashboard");
+            }
+        }, 3000); // Poll every 3 seconds
+
+        return () => clearInterval(interval);
+    }, [user, navigate]);
+
+    const handleResend = async () => {
         try {
             if (user && !user.emailVerified) {
                 await sendEmailVerification(user);
-                alert("Verification email resent.");
+                setResent(true);
             }
-        } catch (error) {
-            console.error("Error sending verification email:", error);
-            alert("Failed to resend verification email.");
+        } catch (err) {
+            console.error("Error resending verification:", err);
         }
     };
 
     return (
         <div style={{ padding: "2rem", textAlign: "center" }}>
             <h2>Verify Your Email</h2>
-            <p>
-                A verification email has been sent to <strong>{user?.email}</strong>.
-            </p>
-            <p>
-                Please check your inbox and click the verification link to activate your account.
-            </p>
+            <p>We've sent a verification link to <strong>{user?.email}</strong>.</p>
+            <p>Please click the link in your email to continue.</p>
 
-            <button onClick={resendVerification} style={{ marginTop: "1rem", padding: "0.5rem 1rem" }}>
-                Resend Verification Email
+            <button onClick={handleResend} style={{ marginTop: "1rem" }}>
+                Resend Email
             </button>
+
+            {resent && <p style={{ color: "green" }}>Verification email resent!</p>}
         </div>
     );
-}
+};
 
 export default VerifyEmailPage;

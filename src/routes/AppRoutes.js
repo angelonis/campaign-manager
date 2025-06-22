@@ -2,15 +2,16 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 import { useAuth } from "../auth/useAuth";
 
-import WelcomePage from "../pages/WelcomePage";
 import LoginPage from "../auth/LoginPage";
 import RegisterPage from "../auth/RegisterPage";
 import VerifyEmailPage from "../auth/VerifyEmailPage";
 import PrivateRoute from "../auth/PrivateRoute";
+import ResetPasswordPage from "../auth/ResetPasswordPage";
 
 import Dashboard from "../dashboard/Dashboard";
 import ProfilePage from "../pages/ProfilePage";
 import SettingsPage from "../pages/SettingsPage";
+import WelcomePage from "../pages/WelcomePage";
 
 import CharacterPage from "../entities/CharacterPage";
 import NPCPage from "../entities/NPCPage";
@@ -30,6 +31,7 @@ const AppRoutes = () => {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/verify-email" element={<VerifyEmailPage />} />
+            <Route path="/reset-password" element={<ResetPasswordPage />} />
 
             {/* Private Routes */}
             <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
