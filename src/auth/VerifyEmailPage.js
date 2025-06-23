@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { auth } from "../firebase/firebase";
+import { auth, db } from "../firebase/firebase";
 import { sendEmailVerification } from "firebase/auth";
 import { useAuth } from "../auth/useAuth";
+import { doc, setDoc } from "firebase/firestore";
 
 const VerifyEmailPage = () => {
     const { user } = useAuth();
@@ -15,6 +16,13 @@ const VerifyEmailPage = () => {
         const interval = setInterval(async () => {
             await user.reload(); // Refresh user object
             if (user.emailVerified) {
+                await setDoc(doc(db, "users", auth.currentUser.uid), {
+                    displayName: auth.currentUser.email,
+                    role: "player",
+                    joined: new Date().toISOString(),
+                });
+
+
                 clearInterval(interval);
                 navigate("/dashboard");
             }

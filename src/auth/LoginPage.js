@@ -16,7 +16,11 @@ function LoginPage() {
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            await signInWithEmailAndPassword(auth, email, password);
+            const userCreds = await signInWithEmailAndPassword(auth, email, password);
+            if (!userCreds.user.emailVerified) {
+                setError("Please verify your email before logging in. Check your inbox for the verification link.");
+                return;
+            }
             navigate("/");
         } catch (err) {
             setError("An account with that username/password does not exist. Please use the 'Register here' link below to create an account.");
