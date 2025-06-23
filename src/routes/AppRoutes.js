@@ -7,11 +7,14 @@ import RegisterPage from "../auth/RegisterPage";
 import VerifyEmailPage from "../auth/VerifyEmailPage";
 import PrivateRoute from "../auth/PrivateRoute";
 import ResetPasswordPage from "../auth/ResetPasswordPage";
+import AdminRoute from "../auth/AdminRoute";
 
 import Dashboard from "../dashboard/Dashboard";
 import ProfilePage from "../pages/ProfilePage";
 import SettingsPage from "../pages/SettingsPage";
 import WelcomePage from "../pages/WelcomePage";
+import AdminPage from "../pages/AdminPage";
+
 
 import CharacterPage from "../entities/CharacterPage";
 import NPCPage from "../entities/NPCPage";
@@ -45,7 +48,9 @@ const AppRoutes = () => {
             <Route path="/events" element={<PrivateRoute><EventPage /></PrivateRoute>} />
             <Route path="/items" element={<PrivateRoute><ItemPage /></PrivateRoute>} />
             <Route path="/entity/:type/:id" element={<PrivateRoute><EntityDetail /></PrivateRoute>} />
-            <Route path="/canvas" element={<PrivateRoute><CanvasPage /></PrivateRoute>} />            
+            <Route path="/canvas" element={<PrivateRoute><CanvasPage /></PrivateRoute>} />    
+            <Route path="/admin" element={<PrivateRoute><AdminPage /></PrivateRoute>} />
+
         </Routes>
     );
 };

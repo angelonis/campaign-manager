@@ -1,0 +1,15 @@
+table {
+    border: 1px solid #ccc;
+    background-color: var(--color-surface);
+}
+
+th, td {
+    padding: 0.6rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+select {
+    padding: 0.4rem;
+    border-radius: var(--border-radius);
+}
