@@ -18,6 +18,7 @@ const VerifyEmailPage = () => {
             if (user.emailVerified) {
                 await setDoc(doc(db, "users", auth.currentUser.uid), {
                     displayName: auth.currentUser.email,
+                    email: auth.currentUser.email,
                     role: "viewer",
                     joined: new Date().toISOString(),
                 });
