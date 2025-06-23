@@ -5,6 +5,7 @@ import { HiMenuAlt2, HiX } from "react-icons/hi";
 import { AuthProvider, useAuth } from "./auth/useAuth";
 import UserMenu from "./components/UserMenu";
 import AppRoutes from "./routes/AppRoutes";
+import { useUserRole } from "./hooks/useUserRole";
 
 import { ThemeProvider } from "./context/ThemeContext";
 
@@ -15,6 +16,7 @@ import './styles/theme.css';
 function Layout() {
     const [sidebarOpen, setSidebarOpen] = useState(true);
     const { user } = useAuth();
+    const role = useUserRole();
 
     const toggleSidebar = () => {
         setSidebarOpen(!sidebarOpen);
@@ -45,6 +47,7 @@ function Layout() {
                             <Link to="/events">Events</Link>
                             <Link to="/items">Items</Link>
                             <Link to="/canvas">Story Canvas</Link>
+                            {role === "admin" && <Link to="/admin">Admin</Link>}
                         </nav>
                     </aside>
                 )}
