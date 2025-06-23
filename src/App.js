@@ -7,6 +7,8 @@ import UserMenu from "./components/UserMenu";
 import AppRoutes from "./routes/AppRoutes";
 import { useUserRole } from "./hooks/useUserRole";
 
+import { HelmetProvider } from "react-helmet-async";
+
 import { ThemeProvider } from "./context/ThemeContext";
 
 import "./styles/App.css";
@@ -62,13 +64,15 @@ function Layout() {
 
 function App() {
     return (
-        <AuthProvider>
-            <ThemeProvider>
-                <Router basename="/campaign-manager">
-                    <Layout />
-                </Router>
-            </ThemeProvider>
-        </AuthProvider>
+        <HelmetProvider>
+            <AuthProvider>
+                <ThemeProvider>
+                    <Router basename="/campaign-manager">
+                        <Layout />
+                    </Router>
+                </ThemeProvider>
+            </AuthProvider>
+        </HelmetProvider>
     );
 }
 

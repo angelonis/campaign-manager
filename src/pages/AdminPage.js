@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { collection, getDocs, doc, updateDoc } from "firebase/firestore";
 import { db } from "../firebase/firebase";
+import { Helmet } from "react-helmet-async";
 
 import ConfirmModal from "../components/ConfirmModal";
 
@@ -56,7 +57,13 @@ const AdminPage = () => {
     if (loading) return <p>Loading users...</p>;
 
     return (
-        <div>
+        <>
+            <Helmet>
+                <title>Admin | Campaign Manager</title>
+                <meta name="description" content="Manage your users" />
+            </Helmet>
+
+            <div>
             <h2>User Management</h2>
             <table style={{ width: "100%", borderCollapse: "collapse" }}>
                 <thead>
@@ -92,7 +99,8 @@ const AdminPage = () => {
                 message={`Are you sure you want to change '${pendingRoleChange?.displayName}' role to '${pendingRoleChange?.newRole}'?`}
                 onConfirm={handleConfirmRoleChange}
                 onCancel={() => setModalOpen(false)} />
-        </div>
+            </div>
+        </>
     );
 };
 
