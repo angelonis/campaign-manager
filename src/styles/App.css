@@ -37,13 +37,35 @@
 
 /* Layout Styles */
 
+/* Root layout now a horizontal flex container */
 .app-layout {
     display: flex;
-    flex-direction: column;
     height: 100vh;
     font-family: sans-serif;
 }
 
+/* Sidebar spans full height */
+.sidebar {
+    width: 175px;
+    background-color: var(--color-sidebar);
+    color: var(--color-text);
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 2px 0 4px rgba(0, 0, 0, 0.1);
+    transition: background-color var(--transition), color var(--transition);
+}
+
+/* Wrapper now holds the topbar + content stacked vertically */
+.content-wrapper {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    overflow: hidden;
+    height: 100vh;
+}
+
+/* Topbar appears only above main content */
 .topbar {
     height: 50px;
     background-color: var(--color-surface);
@@ -62,41 +84,24 @@
     width: 100%;
 }
 
-.content-wrapper {
-    display: flex;
-    flex: 1;
-    overflow: hidden;
+.sidebar h2 {
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
 }
 
-.sidebar {
-    width: 175px;
-    background-color: var(--color-sidebar);
+.sidebar a {
     color: var(--color-text);
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
-    box-shadow: 2px 0 4px rgba(0, 0, 0, 0.1);
+    text-decoration: none;
+    margin-bottom: 0.5rem;
+    padding: 0.5rem;
+    border-radius: var(--border-radius);
     transition: background-color var(--transition), color var(--transition);
 }
 
-    .sidebar h2 {
-        margin-bottom: 1rem;
-        font-size: 1.2rem;
+    .sidebar a:hover {
+        background-color: var(--color-accent);
+        color: black;
     }
-
-    .sidebar a {
-        color: var(--color-text);
-        text-decoration: none;
-        margin-bottom: 0.5rem;
-        padding: 0.5rem;
-        border-radius: var(--border-radius);
-        transition: background-color var(--transition), color var(--transition);
-    }
-
-        .sidebar a:hover {
-            background-color: var(--color-accent);
-            color: black;
-        }
 
 .sidebar-toggle {
     background-color: transparent;
@@ -113,19 +118,65 @@
         color: black;
     }
 
-
 .nav-links {
     display: flex;
     flex-direction: column;
 }
 
+.sidebar-header {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 1rem;
+}
+
+.sidebar-toggle {
+    background-color: transparent;
+    color: var(--color-text);
+    padding: 0;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color var(--transition);
+}
+
+    .sidebar-toggle:hover {
+        background-color: var(--color-surface);
+        color: var(--color-muted);
+    }
+    .sidebar-toggle.collapsed {
+        position: absolute;
+        top: 0.5rem;
+        left: 0.5rem;
+        background-color: var(--color-surface);
+        border: none;
+        font-size: 1.5rem;
+        padding: 0.3rem;
+        border-radius: var(--border-radius);
+        cursor: pointer;
+        z-index: 20;
+    }
+
+
+/* Main content now only includes content under topbar */
 .main-content {
     flex-grow: 1;
     padding: 2rem;
     background-color: var(--color-bg);
     color: var(--color-text);
     overflow-y: auto;
-} 
+}
+
+.nav-links a {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem; /* space between icon and text */
+    padding: 0.5rem;
+}
+
+.nav-icon {
+    font-size: 1.2rem;
+}
+
 
 /* Dropdown Items */
 

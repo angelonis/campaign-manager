@@ -1,0 +1,87 @@
+.character-page {
+    padding: 2rem;
+    color: var(--color-text);
+    background-color: var(--color-bg);
+    min-height: 100%;
+}
+
+.character-header h2 {
+    margin-bottom: 0.5rem;
+    font-size: 1.8rem;
+}
+
+.character-header p {
+    margin-bottom: 2rem;
+    color: var(--color-muted);
+    font-size: 1rem;
+}
+
+.character-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.character-card {
+    width: 100px;
+    padding: 1rem;
+    background-color: var(--color-surface);
+    border-radius: var(--border-radius);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.character-image {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: var(--border-radius);
+}
+
+.character-info {
+    margin-top: 0.5rem;
+}
+
+
+    .character-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    }
+
+.create-card {
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px dashed var(--color-muted);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: background-color var(--transition), border-color var(--transition);
+    background-color: var(--color-surface);
+    color: var(--color-text);
+}
+
+    .create-card:hover {
+        background-color: var(--color-accent);
+        border-color: var(--color-accent);
+        color: black;
+    }
+.create-card-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+
+
+.plus-icon {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    color: var(--color-accent);
+}
+
