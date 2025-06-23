@@ -5,6 +5,8 @@ import { sendEmailVerification } from "firebase/auth";
 import { useAuth } from "../auth/useAuth";
 import { doc, setDoc } from "firebase/firestore";
 
+import { Helmet } from "react-helmet-async";
+
 const VerifyEmailPage = () => {
     const { user } = useAuth();
     const navigate = useNavigate();
@@ -43,7 +45,12 @@ const VerifyEmailPage = () => {
     };
 
     return (
-        <div style={{ padding: "2rem", textAlign: "center" }}>
+        <>
+            <Helmet>
+                <title>Verify Email | Campaign Manager</title>
+            </Helmet>
+
+            <div style={{ padding: "2rem", textAlign: "center" }}>
             <h2>Verify Your Email</h2>
             <p>We've sent a verification link to <strong>{user?.email}</strong>.</p>
             <p>Please click the link in your email to continue.</p>
@@ -53,7 +60,9 @@ const VerifyEmailPage = () => {
             </button>
 
             {resent && <p style={{ color: "green" }}>Verification email resent!</p>}
-        </div>
+            </div>
+
+        </>
     );
 };
 

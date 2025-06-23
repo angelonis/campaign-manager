@@ -4,6 +4,8 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
+import { Helmet } from "react-helmet-async";
+
 import "../styles/Login.css";
 
 
@@ -28,7 +30,13 @@ function LoginPage() {
     };
 
     return (
-        <div className="login-container">
+        <>
+            <Helmet>
+                <title>Login | Campaign Manager</title>
+                <meta name="description" content="Login to your account." />
+            </Helmet>
+
+            <div className="login-container">
             <h2>Login</h2>
             {error && <p className="error-message">{error}</p>}
 
@@ -59,7 +67,8 @@ function LoginPage() {
                     Don't have an account? <Link to="/register">Register here</Link>
                 </p>
             </form>
-        </div>
+            </div>
+        </>
 
     );
 }

@@ -3,6 +3,8 @@ import { sendPasswordResetEmail } from "firebase/auth";
 import { auth } from "../firebase/firebase";
 import { Link } from "react-router-dom";
 
+import { Helmet } from "react-helmet-async";
+
 import "../styles/ResetPassword.css";
 
 const ResetPasswordPage = () => {
@@ -25,7 +27,12 @@ const ResetPasswordPage = () => {
     };
 
     return (
-        <div className="reset-container">
+        <>
+            <Helmet>
+                <title>Reset Password | Campaign Manager</title>
+            </Helmet>
+
+            <div className="reset-container">
             <h2>Reset Your Password</h2>
             <form onSubmit={handleReset} className="reset-form">
                 <input
@@ -52,7 +59,7 @@ const ResetPasswordPage = () => {
             </div>
 
         </div>
-
+        </>
     );
 };
 

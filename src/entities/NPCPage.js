@@ -1,4 +1,16 @@
+import { Helmet } from "react-helmet-async";
+
 function NPCPage() {
-    return <h2>NPC Manager (coming soon)</h2>;
+    return (
+        <>
+            <Helmet>
+                <title>NPCs | Campaign Manager</title>
+                <meta name="description" content="Manage your NPCs" />
+            </Helmet>
+
+            <div>NPCs Page Coming Soon</div>
+        </>
+    );
 }
+
 export default NPCPage;
