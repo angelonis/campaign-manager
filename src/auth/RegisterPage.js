@@ -3,6 +3,8 @@ import { auth } from "../firebase/firebase";
 import { createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
 import { useNavigate, Link } from "react-router-dom";
 
+import { Helmet } from "react-helmet-async";
+
 import "../styles/Register.css";
 
 function RegisterPage() {
@@ -34,41 +36,46 @@ function RegisterPage() {
     };
 
     return (
-        <div className="register-container">
-            <h2>Register</h2>
-            {error && <p className="error-message">{error}</p>}
-            <form onSubmit={handleRegister} className="register-form">
-                <input
-                    type="email"
-                    placeholder="Email"
-                    className="register-input"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                />
-                <input
-                    type="password"
-                    placeholder="Password"
-                    className="register-input"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                />
-                <input
-                    type="password"
-                    placeholder="Confirm Password"
-                    className="register-input"
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                    required
-                />
-                <button type="submit" className="register-button">Register</button>
-            </form>
-            <p className="login-redirect">
-                Already have an account? <Link to="/login">Login</Link>
-            </p>
-        </div>
-
+        <>
+            <Helmet>
+                <title>Register | Campaign Manager</title>
+            </Helmet>
+        
+            <div className="register-container">
+                <h2>Register</h2>
+                {error && <p className="error-message">{error}</p>}
+                <form onSubmit={handleRegister} className="register-form">
+                    <input
+                        type="email"
+                        placeholder="Email"
+                        className="register-input"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
+                    />
+                    <input
+                        type="password"
+                        placeholder="Password"
+                        className="register-input"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                    />
+                    <input
+                        type="password"
+                        placeholder="Confirm Password"
+                        className="register-input"
+                        value={confirmPassword}
+                        onChange={(e) => setConfirmPassword(e.target.value)}
+                        required
+                    />
+                    <button type="submit" className="register-button">Register</button>
+                </form>
+                <p className="login-redirect">
+                    Already have an account? <Link to="/login">Login</Link>
+                </p>
+            </div>
+        </>
     );
 }
 
