@@ -18,6 +18,8 @@
     border-radius: var(--border-radius);
     width: 400px;
     max-width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     animation: fadeIn 0.3s ease-in-out;
 }

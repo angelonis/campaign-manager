@@ -93,7 +93,7 @@
 /* Topbar appears only above main content */
 .topbar {
     height: 50px;
-    background-color: var(--color-bg);
+    background-color: var(--color-bg);    
     color: var(--color-text);
     display: flex;
     align-items: center;
