@@ -30,22 +30,58 @@ function CharacterModal({ onClose, onCreate, onUpdate, character }) {
         }
     }, [character, isEdit]);
 
+    //const handleSubmit = async (e) => {
+    //    e.preventDefault();
+
+    //    const imageUrl = image ? URL.createObjectURL(image) : imagePreview || null;
+
+    //    const characterData = {
+    //        name,
+    //        locations,
+    //        description,
+    //        affiliations,
+    //        image: imageUrl,
+    //        createBy: user?.uid || null,
+    //        createdAt: isEdit ? character.createdAt : new Date().toISOString()
+    //    };
+
+    //    try {
+    //        if (isEdit) {
+    //            const docRef = doc(db, "characters", character.id);
+    //            await updateDoc(docRef, characterData);
+    //            onUpdate?.({ ...character, ...characterData });
+    //        } else {
+    //            const docRef = await addDoc(collection(db, "characters"), characterData);
+    //            onCreate?.({ ...characterData, id: docRef.id });
+    //        }
+    //        onClose();
+    //    } catch (error) {
+    //        console.error("Error saving character:", error);
+    //    }
+    //};
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const imageUrl = image ? URL.createObjectURL(image) : imagePreview || null;
-
-        const characterData = {
-            name,
-            locations,
-            description,
-            affiliations,
-            image: imageUrl,
-            createBy: user?.uid || null,
-            createdAt: isEdit ? character.createdAt : new Date().toISOString()
-        };
+        let imageUrl = imagePreview || null;
 
         try {
+            if (image) {
+                const imageRef = ref(storage, `characters/${user.uid}/${uuidv4()}`);
+                const snapshot = await uploadBytes(imageRef, image);
+                imageUrl = await getDownloadURL(snapshot.ref);
+            }
+
+            const characterData = {
+                name,
+                locations,
+                description,
+                affiliations,
+                image: imageUrl,
+                createBy: user?.uid || null,
+                createdAt: isEdit ? character.createdAt : new Date().toISOString()
+            };
+
             if (isEdit) {
                 const docRef = doc(db, "characters", character.id);
                 await updateDoc(docRef, characterData);
@@ -54,11 +90,13 @@ function CharacterModal({ onClose, onCreate, onUpdate, character }) {
                 const docRef = await addDoc(collection(db, "characters"), characterData);
                 onCreate?.({ ...characterData, id: docRef.id });
             }
+
             onClose();
         } catch (error) {
             console.error("Error saving character:", error);
         }
     };
+
 
     const handleImageChange = (e) => {
         const file = e.target.files[0];
