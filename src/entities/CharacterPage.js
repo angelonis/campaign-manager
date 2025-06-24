@@ -1,23 +1,40 @@
 import React, { useState } from "react";
 import { Helmet } from "react-helmet-async";
-import "../styles/CharacterPage.css";
 import { AiOutlinePlus } from "react-icons/ai";
+
 import { useAuth } from "../auth/useAuth";
+
 import CharacterModal from "../components/CharacterModal";
 import CharacterCard from "../components/CharacterCard";
+import ConfirmModal from "../components/ConfirmModal";
 
+import { doc, deleteDoc } from "firebase/firestore";
+import { db } from "../firebase/firebase";
+import { fetchCharactersByUser } from "../firebase/firebaseHelpers";
 
+import "../styles/CharacterPage.css";
 
 function CharacterPage() {
     const { user } = useAuth();
     const [characters, setCharacters] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [editingCharacter, setEditingCharacter] = useState(null);
-
+    const [characterToDelete, setCharacterToDelete] = useState(null);
 
     const handleCreate = (newCharacter) => {
         setCharacters(prev => [...prev, newCharacter]); // append to grid
         setShowModal(false);
+    };
+
+    const handleConfirmDelete = async () => {
+        try {
+            console.log("Deleting character:", characterToDelete.id);
+            await deleteDoc(doc(db, "characters", characterToDelete.id));
+            setCharacters(prev => prev.filter(char => char.id !== characterToDelete.id));
+            setCharacterToDelete(null);
+        } catch (error) {
+            console.error("Error deleting character:", error);
+        }
     };
 
     return (
@@ -28,7 +45,7 @@ function CharacterPage() {
             </Helmet>
 
             <div className="character-page">
-                <div className="character-header">
+                <div className="content-header">
                     <h2>Characters</h2>
                     <p>Track your world's heroes, villains, and everyone in between.</p>
                 </div>
@@ -51,7 +68,7 @@ function CharacterPage() {
                                 setShowModal(true);
                                 // You may want to store `editingCharacter` too
                             }}
-                            onDelete={(char) => console.log("TODO: delete character", char)}
+                            onDelete={(char) => setCharacterToDelete(char)}
                         />
                     ))}
 
@@ -75,9 +92,17 @@ function CharacterPage() {
                         setEditingCharacter(null);
                         setShowModal(false);
                     }}
-                    character={editingCharacter}
+                    character={editingCharacter}                    
                 />
             )}
+
+            <ConfirmModal
+                isOpen={!!characterToDelete}
+                title="Delete Character"
+                message={`Are you sure you want to delete '${characterToDelete?.name}'?`}
+                onConfirm={handleConfirmDelete}
+                onCancel={() => setCharacterToDelete(null)}
+            />
 
         </>
     );

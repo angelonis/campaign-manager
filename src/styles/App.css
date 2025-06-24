@@ -36,14 +36,30 @@
 }
 
 /* Layout Styles */
+.content-header {
+    padding: 0;
+    margin: 0;
+}
+
+    .content-header h2 {
+        margin-bottom: 0.5rem;
+        margin-top: 0;
+        padding: 0;
+        font-size: 1.8rem;
+    }
+
+    .content-header p {
+        margin-bottom: 2rem;
+        color: var(--color-muted);
+        font-size: 1rem;
+    }
 
 .tile-grid-container {
     padding: 1.5rem;
-    min-height: 100vh;
+    min-height: 70vh;
     background-color: var(--color-tile-bg);
     border-radius: var(--border-radius);
-    border: 1px solid var(--border-color-tile);
-    /*box-shadow: inset 5px 5px 10px var(--color-drop-shadow-bottom-right), inset -5px -5px 10px var(--color-drop-shadow-top-left);*/
+    border: 1px solid var(--border-color-tile);   
 }
 
 /* Root layout now a horizontal flex container */

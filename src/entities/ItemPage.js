@@ -8,7 +8,16 @@ function ItemPage() {
                 <meta name="description" content="Manage your items (eg. weapons, relics, etc.)" />
             </Helmet>
 
-            <div>Items Page Coming Soon</div>
+            <div className="items-page">
+                <div className="content-header">
+                    <h2>Items</h2>
+                    <p>Create wonderous items!</p>
+                </div>
+
+                <div className="tile-grid-container">
+                    <p>Items coming soon!</p>
+                </div>
+            </div>
         </>
     );
 }

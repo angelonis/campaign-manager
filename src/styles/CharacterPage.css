@@ -1,32 +1,5 @@
-.character-page {
-    color: var(--color-text);
-    background-color: var(--color-bg);
-    min-height: 100%;
-}
 
-.character-header {
-    padding: 0;
-    margin: 0;
-}
 
-    .character-header h2 {
-        margin-bottom: 0.5rem;
-        margin-top: 0;
-        padding: 0;
-        font-size: 1.8rem;
-    }
-
-.character-header p {
-    margin-bottom: 2rem;
-    color: var(--color-muted);
-    font-size: 1rem;
-}
-
-.character-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-}
 
 .create-card {
     width: 100px;
