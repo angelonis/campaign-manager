@@ -1,0 +1,68 @@
+.character-card {
+    width: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0rem;
+    background-color: var(--color-surface);
+    border-radius: var(--border-radius);
+    position: relative;
+    transition: box-shadow 0.2s ease;
+}
+
+    .character-card:hover {
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+.image-container {
+    position: relative;
+    width: 100px;
+    height: 100px;
+}
+
+.character-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: var(--border-radius);
+}
+
+.image-actions {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    opacity: 0;
+    transition: opacity var(--transition);
+}
+
+.image-container:hover .image-actions {
+    opacity: 1;
+}
+
+.icon-button {
+    background-color: var(--color-surface);
+    border: none;
+    padding: 4px;
+    border-radius: 4px;
+    cursor: pointer;
+    color: var(--color-text);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+    .icon-button:hover {
+        background-color: var(--color-accent);
+        color: black;
+    }
+
+.character-info {
+    text-align: center;
+    margin-top: 0rem;
+}
+
+    .character-info h4 {
+        padding: .5rem;
+        margin: 0;
+    }

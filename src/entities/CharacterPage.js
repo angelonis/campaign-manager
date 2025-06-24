@@ -4,11 +4,16 @@ import "../styles/CharacterPage.css";
 import { AiOutlinePlus } from "react-icons/ai";
 import { useAuth } from "../auth/useAuth";
 import CharacterModal from "../components/CharacterModal";
+import CharacterCard from "../components/CharacterCard";
+
+
 
 function CharacterPage() {
     const { user } = useAuth();
     const [characters, setCharacters] = useState([]);
     const [showModal, setShowModal] = useState(false);
+    const [editingCharacter, setEditingCharacter] = useState(null);
+
 
     const handleCreate = (newCharacter) => {
         setCharacters(prev => [...prev, newCharacter]); // append to grid
@@ -37,27 +42,42 @@ function CharacterPage() {
                         </div>
                     </div>
 
-                    {/* Then render newly created characters */}
                     {characters.map((char, index) => (
-                        <div className="character-card" key={index}>
-                            <img className="character-image" src="https://via.placeholder.com/100" alt="Placeholder" />
-
-                            
-                            <div className="character-info">
-                                <h4>{char.name}</h4>
-                                <p>{char.location}</p>
-                            </div>
-                        </div>
+                        <CharacterCard
+                            key={index}
+                            character={char}
+                            onEdit={(char) => {
+                                setEditingCharacter(char);
+                                setShowModal(true);
+                                // You may want to store `editingCharacter` too
+                            }}
+                            onDelete={(char) => console.log("TODO: delete character", char)}
+                        />
                     ))}
+
                 </div>
             </div>
 
             {showModal && (
                 <CharacterModal
-                    onClose={() => setShowModal(false)}
+                    onClose={() => {
+                        setShowModal(false);
+                        setEditingCharacter(null);
+                    }}
                     onCreate={handleCreate}
+                    onUpdate={(updatedChar) => {
+                        setCharacters(prev =>
+                            prev.map((char) =>
+                                char.id === updatedChar.id ? updatedChar : char
+                            )
+                        );
+                        setEditingCharacter(null);
+                        setShowModal(false);
+                    }}
+                    character={editingCharacter}
                 />
             )}
+
         </>
     );
 }

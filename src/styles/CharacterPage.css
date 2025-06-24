@@ -1,14 +1,20 @@
 .character-page {
-    padding: 2rem;
     color: var(--color-text);
     background-color: var(--color-bg);
     min-height: 100%;
 }
 
-.character-header h2 {
-    margin-bottom: 0.5rem;
-    font-size: 1.8rem;
+.character-header {
+    padding: 0;
+    margin: 0;
 }
+
+    .character-header h2 {
+        margin-bottom: 0.5rem;
+        margin-top: 0;
+        padding: 0;
+        font-size: 1.8rem;
+    }
 
 .character-header p {
     margin-bottom: 2rem;
@@ -21,34 +27,6 @@
     flex-wrap: wrap;
     gap: 1rem;
 }
-
-.character-card {
-    width: 100px;
-    padding: 1rem;
-    background-color: var(--color-surface);
-    border-radius: var(--border-radius);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-}
-
-.character-image {
-    width: 100%;
-    height: 150px;
-    object-fit: cover;
-    border-radius: var(--border-radius);
-}
-
-.character-info {
-    margin-top: 0.5rem;
-}
-
-
-    .character-card:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-    }
 
 .create-card {
     width: 100px;
@@ -76,8 +54,6 @@
     justify-content: center;
     text-align: center;
 }
-
-
 
 .plus-icon {
     font-size: 2.5rem;

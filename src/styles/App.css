@@ -68,18 +68,17 @@
 /* Topbar appears only above main content */
 .topbar {
     height: 50px;
-    background-color: var(--color-surface);
+    background-color: var(--color-bg);
     color: var(--color-text);
     display: flex;
     align-items: center;
     padding: 0 1rem;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
     z-index: 10;
 }
 
 .topbar-content {
     display: flex;
-    background-color: var(--color-surface);
+    background-color: var(--color-bg);
     justify-content: space-between;
     width: 100%;
 }
