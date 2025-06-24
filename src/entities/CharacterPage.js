@@ -32,8 +32,8 @@ function CharacterPage() {
                     <h2>Characters</h2>
                     <p>Track your world's heroes, villains, and everyone in between.</p>
                 </div>
-
-                <div className="character-grid">
+                <div className="tile-grid-container">
+                    <div className="character-grid">
                     {/* Always render create button first */}
                     <div className="character-card create-card" onClick={() => setShowModal(true)}>
                         <div className="create-card-content">
@@ -55,6 +55,7 @@ function CharacterPage() {
                         />
                     ))}
 
+                    </div>
                 </div>
             </div>
 

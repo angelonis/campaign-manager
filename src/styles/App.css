@@ -37,6 +37,15 @@
 
 /* Layout Styles */
 
+.tile-grid-container {
+    padding: 1.5rem;
+    min-height: 100vh;
+    background-color: var(--color-tile-bg);
+    border-radius: var(--border-radius);
+    border: 1px solid var(--border-color-tile);
+    /*box-shadow: inset 5px 5px 10px var(--color-drop-shadow-bottom-right), inset -5px -5px 10px var(--color-drop-shadow-top-left);*/
+}
+
 /* Root layout now a horizontal flex container */
 .app-layout {
     display: flex;
