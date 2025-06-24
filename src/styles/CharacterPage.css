@@ -39,3 +39,15 @@
     color: var(--color-accent);
 }
 
+.character-card.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: auto; /* allows tooltip via title */
+}
+
+    .character-card.disabled:hover {
+        background-color: inherit;
+        color: inherit;
+    }
+
+

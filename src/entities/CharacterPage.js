@@ -1,7 +1,9 @@
 ﻿import React, { useState, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { AiOutlinePlus } from "react-icons/ai";
+
 import { useAuth } from "../auth/useAuth";
+import { useUserRole } from "../hooks/useUserRole";
 
 import CharacterModal from "../components/CharacterModal";
 import CharacterCard from "../components/CharacterCard";
@@ -19,6 +21,9 @@ function CharacterPage() {
     const [showModal, setShowModal] = useState(false);
     const [editingCharacter, setEditingCharacter] = useState(null);
     const [characterToDelete, setCharacterToDelete] = useState(null);
+    const role  = useUserRole();
+    const canCreate = role === "admin" || role === "creator";
+
 
     // Load characters on mount or when user changes
     useEffect(() => {
@@ -56,7 +61,7 @@ function CharacterPage() {
                 <title>Characters | Campaign Manager</title>
                 <meta name="description" content="Manage and create characters in your world." />
             </Helmet>
-
+            
             <div className="character-page">
                 <div className="character-header">
                     <h2>Characters</h2>
@@ -65,7 +70,10 @@ function CharacterPage() {
 
                 <div className="tile-grid-container">
                     <div className="character-grid">
-                    <div className="character-card create-card" onClick={() => setShowModal(true)}>
+
+                        <div className={`character-card create-card ${!canCreate ? "disabled" : ""}`}
+                            onClick={() => canCreate && setShowModal(true)}
+                            title={canCreate ? "Create a new character" : "You don’t have permission to create characters"}                        >
                         <div className="create-card-content">
                             <AiOutlinePlus size={24} />
                             <span>Create Character</span>
