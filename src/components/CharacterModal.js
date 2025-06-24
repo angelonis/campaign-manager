@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { db } from "../firebase/firebase";
 import { collection, addDoc, doc, updateDoc } from "firebase/firestore";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { storage } from "../firebase/firebase";
+import { v4 as uuidv4 } from "uuid"; 
+
 import { useAuth } from "../auth/useAuth";
 
 import "../styles/CharacterModal.css";

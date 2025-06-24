@@ -1,9 +1,14 @@
-
+.character-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    column-gap: .25rem; 
+    row-gap: 1rem;
+}
 
 
 .create-card {
     width: 100px;
-    height: 100px;
+    height: 130px;
     display: flex;
     align-items: center;
     justify-content: center;

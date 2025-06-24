@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+﻿import React, { useState, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { AiOutlinePlus } from "react-icons/ai";
-
 import { useAuth } from "../auth/useAuth";
 
 import CharacterModal from "../components/CharacterModal";
@@ -21,18 +20,32 @@ function CharacterPage() {
     const [editingCharacter, setEditingCharacter] = useState(null);
     const [characterToDelete, setCharacterToDelete] = useState(null);
 
+    // Load characters on mount or when user changes
+    useEffect(() => {
+        if (!user) return;
+
+        const loadCharacters = async () => {
+            const results = await fetchCharactersByUser(user.uid);
+            setCharacters(results);
+        };
+
+        loadCharacters();
+    }, [user]);
+
     const handleCreate = (newCharacter) => {
-        setCharacters(prev => [...prev, newCharacter]); // append to grid
+        setCharacters((prev) => [...prev, newCharacter]);
         setShowModal(false);
     };
 
     const handleConfirmDelete = async () => {
         try {
-            console.log("Deleting character:", characterToDelete.id);
             await deleteDoc(doc(db, "characters", characterToDelete.id));
-            setCharacters(prev => prev.filter(char => char.id !== characterToDelete.id));
+            setCharacters((prev) =>
+                prev.filter((char) => char.id !== characterToDelete.id)
+            );
             setCharacterToDelete(null);
         } catch (error) {
+            alert.apply("Failed to delete character. Please try again.");
             console.error("Error deleting character:", error);
         }
     };
@@ -45,13 +58,13 @@ function CharacterPage() {
             </Helmet>
 
             <div className="character-page">
-                <div className="content-header">
+                <div className="character-header">
                     <h2>Characters</h2>
                     <p>Track your world's heroes, villains, and everyone in between.</p>
                 </div>
+
                 <div className="tile-grid-container">
                     <div className="character-grid">
-                    {/* Always render create button first */}
                     <div className="character-card create-card" onClick={() => setShowModal(true)}>
                         <div className="create-card-content">
                             <AiOutlinePlus size={24} />
@@ -61,17 +74,15 @@ function CharacterPage() {
 
                     {characters.map((char, index) => (
                         <CharacterCard
-                            key={index}
+                            key={char.id || index}
                             character={char}
-                            onEdit={(char) => {
+                            onEdit={() => {
                                 setEditingCharacter(char);
                                 setShowModal(true);
-                                // You may want to store `editingCharacter` too
                             }}
-                            onDelete={(char) => setCharacterToDelete(char)}
+                            onDelete={() => setCharacterToDelete(char)}
                         />
                     ))}
-
                     </div>
                 </div>
             </div>
@@ -84,7 +95,7 @@ function CharacterPage() {
                     }}
                     onCreate={handleCreate}
                     onUpdate={(updatedChar) => {
-                        setCharacters(prev =>
+                        setCharacters((prev) =>
                             prev.map((char) =>
                                 char.id === updatedChar.id ? updatedChar : char
                             )
@@ -92,7 +103,7 @@ function CharacterPage() {
                         setEditingCharacter(null);
                         setShowModal(false);
                     }}
-                    character={editingCharacter}                    
+                    character={editingCharacter}
                 />
             )}
 
@@ -103,7 +114,6 @@ function CharacterPage() {
                 onConfirm={handleConfirmDelete}
                 onCancel={() => setCharacterToDelete(null)}
             />
-
         </>
     );
 }
