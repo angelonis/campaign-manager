@@ -8,7 +8,16 @@ function LocationPage() {
                 <meta name="description" content="Manage your locations (eg. Barovia, Saltmarsh, etc.)" />
             </Helmet>
 
-            <div>Location Page Coming Soon</div>
+            <div className="locations-page">
+                <div className="content-header">
+                    <h2>Locations</h2>
+                    <p>Create locations to add into your world!</p>
+                </div>
+
+                <div className="tile-grid-container">
+                    <p>Locations coming soon!</p>
+                </div>
+            </div>
         </>
     );
 }

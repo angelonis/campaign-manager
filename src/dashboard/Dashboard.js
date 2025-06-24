@@ -1,35 +1,25 @@
-//import React, { useEffect, useState } from "react";
-//import { db } from "../firebase";
-//import { collection, getDocs, query } from "firebase/firestore";
+
+import { Helmet } from "react-helmet-async";
 
 function Dashboard() {
-   /* const [items, setItems] = useState([]);*/
-
-    //useEffect(() => {
-    //    const fetchItems = async () => {
-    //        try {
-    //            const q = query(collection(db, "administrators")); // 1-liner query
-    //            const snapshot = await getDocs(q);       // one call
-    //            setItems(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
-    //        } catch (err) {
-    //            console.error("Firestore fetch error:", err);
-    //        }
-    //    };
-
-    //    fetchItems();
-    //}, []);
 
     return (
-        <div>
-            <h1>Welcome to the Campaign Manager</h1>
-            <ul>
-                {/*{items.map(item => (*/}
-                {/*    <li key={item.id}>*/}
-                {/*        {JSON.stringify(item)}*/}
-                {/*    </li>*/}
-                {/*))}*/}
-            </ul>
-        </div>
+        <>
+            <Helmet>
+                    <title>Dashboard | Campaign Manager</title>
+            </Helmet>
+
+            <div className="dashboard-page">
+                <div className="content-header">
+                    <h2>Dashboard</h2>
+                    <p>Welcome to your Dashboard. Here you will be able to view campaigns shared with you as well as mangaed your own. <br />Happy Building!!</p> 
+                </div>
+
+                <div className="tile-grid-container">
+                    <p>Dashboard coming soon!</p>
+                </div>
+            </div>
+        </>
     );
 }
 
