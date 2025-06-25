@@ -6,6 +6,7 @@ import { storage } from "../firebase/firebase";
 import { v4 as uuidv4 } from "uuid"; 
 
 import { useAuth } from "../auth/useAuth";
+import { getDefaultImageUrl } from "../firebase/firebaseHelpers"; 
 
 import "../styles/CharacterModal.css";
 
@@ -17,8 +18,23 @@ function CharacterModal({ onClose, onCreate, onUpdate, character }) {
     const [locations, setLocations] = useState("");
     const [description, setDescription] = useState("");
     const [image, setImage] = useState(null); // New image file
-    const [imagePreview, setImagePreview] = useState(""); // Preview URL
+    const [defaultCharacterImageUrl, setDefaultCharacterImageUrl] = useState("");
+    const [imagePreview, setImagePreview] = useState("");
     const [affiliations, setAffiliations] = useState("");
+
+    useEffect(() => {
+        const fetchDefaultImage = async () => {
+            const url = await getDefaultImageUrl("characters/default-character.png");
+            if (url) {
+                setDefaultCharacterImageUrl(url);
+                console.log("Default character image URL fetched:", url);
+            } else {
+                // Fallback or error handling if default image cannot be fetched
+                console.warn("Could not fetch default character image from Firebase Storage.");                
+            }
+        };
+        fetchDefaultImage();
+    }, []);
 
     useEffect(() => {
         if (isEdit && character) {
@@ -28,42 +44,15 @@ function CharacterModal({ onClose, onCreate, onUpdate, character }) {
             setAffiliations(character.affiliations || "");
             setImagePreview(character.image || "");
         }
-    }, [character, isEdit]);
-
-    //const handleSubmit = async (e) => {
-    //    e.preventDefault();
-
-    //    const imageUrl = image ? URL.createObjectURL(image) : imagePreview || null;
-
-    //    const characterData = {
-    //        name,
-    //        locations,
-    //        description,
-    //        affiliations,
-    //        image: imageUrl,
-    //        createBy: user?.uid || null,
-    //        createdAt: isEdit ? character.createdAt : new Date().toISOString()
-    //    };
-
-    //    try {
-    //        if (isEdit) {
-    //            const docRef = doc(db, "characters", character.id);
-    //            await updateDoc(docRef, characterData);
-    //            onUpdate?.({ ...character, ...characterData });
-    //        } else {
-    //            const docRef = await addDoc(collection(db, "characters"), characterData);
-    //            onCreate?.({ ...characterData, id: docRef.id });
-    //        }
-    //        onClose();
-    //    } catch (error) {
-    //        console.error("Error saving character:", error);
-    //    }
-    //};
+        else {
+            setImagePreview(defaultCharacterImageUrl || ""); // Set to default image if not editing
+        }
+    }, [character, isEdit, defaultCharacterImageUrl]);    
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        let imageUrl = imagePreview || null;
+        let imageUrl = imagePreview;
 
         try {
             if (image) {
