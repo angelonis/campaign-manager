@@ -1,0 +1,53 @@
+.character-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    column-gap: .25rem; 
+    row-gap: 1rem;
+}
+
+
+.create-card {
+    width: 100px;
+    height: 130px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px dashed var(--color-muted);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: background-color var(--transition), border-color var(--transition);
+    background-color: var(--color-surface);
+    color: var(--color-text);
+}
+
+    .create-card:hover {
+        background-color: var(--color-accent);
+        border-color: var(--color-accent);
+        color: black;
+    }
+.create-card-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.plus-icon {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    color: var(--color-accent);
+}
+
+.character-card.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: auto; /* allows tooltip via title */
+}
+
+    .character-card.disabled:hover {
+        background-color: inherit;
+        color: inherit;
+    }
+
+

@@ -8,7 +8,16 @@ function NPCPage() {
                 <meta name="description" content="Manage your NPCs" />
             </Helmet>
 
-            <div>NPCs Page Coming Soon</div>
+            <div className="npcs-page">
+                <div className="content-header">
+                    <h2>NPCs</h2>
+                    <p>Create NPCs to add into your world!</p>
+                </div>
+
+                <div className="tile-grid-container">
+                    <p>NPCs coming soon!</p>
+                </div>
+            </div>
         </>
     );
 }
