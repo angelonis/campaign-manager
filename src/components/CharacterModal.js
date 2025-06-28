@@ -94,65 +94,147 @@ function CharacterModal({ onClose, onCreate, onUpdate, character }) {
     };
 
     return (
+        //<div className="modal-overlay">
+        //    <div className="character-modal">
+        //        <h2>{isEdit ? "Edit Character" : "Create Character"}</h2>
+        //        <form onSubmit={handleSubmit} className="character-form">
+        //            <label>
+        //                Name
+        //                <input
+        //                    type="text"
+        //                    value={name}
+        //                    onChange={(e) => setName(e.target.value)}
+        //                    required
+        //                />
+        //            </label>
+
+        //            <label>
+        //                Location
+        //                <input
+        //                    type="text"
+        //                    value={locations}
+        //                    onChange={(e) => setLocations(e.target.value)}
+        //                />
+        //            </label>
+
+        //            <label>
+        //                Description
+        //                <textarea
+        //                    value={description}
+        //                    onChange={(e) => setDescription(e.target.value)}
+        //                    rows="3"
+        //                />
+        //            </label>
+
+        //            <label>
+        //                Affiliations
+        //                <input
+        //                    type="text"
+        //                    value={affiliations}
+        //                    onChange={(e) => setAffiliations(e.target.value)}
+        //                />
+        //            </label>
+
+        //            {imagePreview && (
+        //                <div style={{ marginTop: "0.5rem" }}>
+        //                    <img
+        //                        src={imagePreview}
+        //                        alt="Preview"
+        //                        style={{ maxWidth: "100px", borderRadius: "8px" }}
+        //                    />
+        //                </div>
+        //            )}
+
+        //            <label>
+        //                Image
+        //                <input
+        //                    type="file"
+        //                    accept="image/*"
+        //                    onChange={handleImageChange}
+        //                />
+        //            </label>
+
+
+
+        //            <div className="modal-actions">
+        //                <button type="submit" className="btn-primary">
+        //                    {isEdit ? "Update" : "Create"}
+        //                </button>
+        //                <button type="button" className="btn-secondary" onClick={onClose}>
+        //                    Cancel
+        //                </button>
+        //            </div>
+        //        </form>
+        //    </div>
+        //</div>
+
         <div className="modal-overlay">
             <div className="character-modal">
                 <h2>{isEdit ? "Edit Character" : "Create Character"}</h2>
                 <form onSubmit={handleSubmit} className="character-form">
-                    <label>
-                        Name
-                        <input
-                            type="text"
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
-                            required
-                        />
-                    </label>
+                    
 
-                    <label>
-                        Location
-                        <input
-                            type="text"
-                            value={locations}
-                            onChange={(e) => setLocations(e.target.value)}
-                        />
-                    </label>
+                    <div className="form-columns">
+                        <div className="column-left">
+                            {imagePreview && (
+                                <div style={{ marginTop: "0.5rem" }}>
+                                    <img
+                                        src={imagePreview}
+                                        alt="Preview"
+                                        style={{ maxWidth: "100px", borderRadius: "8px" }}
+                                    />
+                                </div>
+                            )}
 
-                    <label>
-                        Description
-                        <textarea
-                            value={description}
-                            onChange={(e) => setDescription(e.target.value)}
-                            rows="3"
-                        />
-                    </label>
+                            <label>
+                                Image
+                                <input
+                                    type="file"
+                                    accept="image/*"
+                                    onChange={handleImageChange}
+                                />
+                            </label>
 
-                    <label>
-                        Affiliations
-                        <input
-                            type="text"
-                            value={affiliations}
-                            onChange={(e) => setAffiliations(e.target.value)}
-                        />
-                    </label>
+                            <label>
+                                Name
+                                <input
+                                    type="text"
+                                    value={name}
+                                    onChange={(e) => setName(e.target.value)}
+                                    required
+                                />
+                            </label>
 
-                    <label>
-                        Image
-                        <input
-                            type="file"
-                            accept="image/*"
-                            onChange={handleImageChange}
-                        />
-                    </label>
+                            <label>
+                                Location
+                                <input
+                                    type="text"
+                                    value={locations}
+                                    onChange={(e) => setLocations(e.target.value)}
+                                />
+                            </label>
 
-                    {imagePreview && (
-                        <div style={{ marginTop: "0.5rem" }}>
-                            <img
-                                src={imagePreview}
-                                alt="Preview"
-                                style={{ maxWidth: "100px", borderRadius: "8px" }}
-                            />
+                            <label>
+                                Affiliations
+                                <input
+                                    type="text"
+                                    value={affiliations}
+                                    onChange={(e) => setAffiliations(e.target.value)}
+                                />
+                            </label>
                         </div>
-                    )}
+
+                        <div className="column-right">
+                            <label>
+                                Description
+                                <textarea
+                                    value={description}
+                                    onChange={(e) => setDescription(e.target.value)}
+                                    rows="10" // Increased rows for better appearance in a separate column
+                                />
+                            </label>
+                        </div>
+                    </div>
 
                     <div className="modal-actions">
                         <button type="submit" className="btn-primary">
